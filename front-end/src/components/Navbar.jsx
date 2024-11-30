@@ -3,6 +3,7 @@ import { NavigateButton } from "./NavigateButton";
 import { useRecoilValue } from "recoil";
 import { isLogedInAtom, userInfoAtom } from "../atoms/user.atom";
 import { Link, Navigate } from "react-router-dom";
+
 const companyName = import.meta.env.VITE_COMPANY_NAME;
 
 export const Navbar = () => {

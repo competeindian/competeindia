@@ -11,11 +11,11 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import ContactUs from "./pages/ContactUs.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import { RecoilRoot } from "recoil";
-
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <RecoilRoot>
-            <GoogleOAuthProvider clientId="150990084300-b686p62at59ldvkdj743ooirqht10ggm.apps.googleusercontent.com">
+            <GoogleOAuthProvider clientId={clientId}>
                 <App></App>
             </GoogleOAuthProvider>
         </RecoilRoot>
