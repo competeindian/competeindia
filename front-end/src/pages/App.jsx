@@ -76,10 +76,7 @@ const App = () => {
                             )
                         }
                     />
-                    <Route
-                        path={`/take-test/:testId`}
-                        element={<TestScreen />}
-                    />
+                    <Route path={`/take-test`} element={<TestScreen />} />
                     <Route path={`/profile`} element={<Profile />} />
                 </Routes>
             </BrowserRouter>
