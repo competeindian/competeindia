@@ -8,13 +8,14 @@ const bodyParser = require("body-parser");
 const authRoute = require("./src/routes/authRoute");
 const userRoute = require("./src/routes/userRoute");
 const connectToDB = require("./src/config/db");
+console.log(process.env.ALLOWED_ORIGINS);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
     cors({
-        origin: process.env.ALLOWED_ORIGINS,
+        origin: "http://localhost:5173",
         credentials: true,
     })
 );

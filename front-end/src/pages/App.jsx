@@ -17,7 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./Dashboard.jsx";
 import { Profile } from "./Profile.jsx";
 import { userInfoAtom } from "../atoms/user.atom.js";
-import { AdminPage } from "./Admin.jsx";
+// import { AdminPage } from "./Admin.jsx";
 
 export const notify = (status, message, position) => {
     toast[status](message, {
@@ -76,7 +76,7 @@ const App = () => {
                     />
                     <Route path={`/take-test`} element={<TestScreen />} />
                     <Route path={`/profile`} element={<Profile />} />
-                    <Route path={`/admin`} element={<AdminPage />} />
+                    {/* <Route path={`/admin`} element={<AdminPage />} /> */}
                 </Routes>
             </BrowserRouter>
         </main>

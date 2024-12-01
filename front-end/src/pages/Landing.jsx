@@ -71,6 +71,7 @@ export const Landing = () => {
                         exams.map((exam) => {
                             return (
                                 <Card
+                                    key={exam._id}
                                     title={exam.examName}
                                     description={exam.examdescription}
                                     image={

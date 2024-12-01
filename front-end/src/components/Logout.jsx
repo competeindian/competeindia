@@ -20,7 +20,7 @@ export const Logout = ({ className }) => {
             });
 
             localStorage.removeItem("token");
-            localStorage.removeItem("user");
+            localStorage.removeItem("userInfo");
             resetUser();
             navigate("/login");
             setLoading(false);
