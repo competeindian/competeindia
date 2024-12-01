@@ -7,7 +7,7 @@ const logout = require("../controllers/logoutController");
 
 router.post("/signup", signupController);
 router.post("/login", loginController);
-router.post("/google", googleAuthController);
+router.post("/verify-google-token", googleAuthController);
 router.get("/logout", logout);
 
 module.exports = router;

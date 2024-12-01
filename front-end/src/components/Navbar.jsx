@@ -32,6 +32,12 @@ export const Navbar = () => {
                                 label={"Home"}
                             />
                         </li>
+                        {isLogedIn && (
+                            <NavigateButton
+                                path={"/test-details"}
+                                label={"Exams"}
+                            />
+                        )}
                         <li>
                             <NavigateButton path={"/about"} label={"About"} />
                         </li>

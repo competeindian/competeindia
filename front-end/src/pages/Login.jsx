@@ -71,6 +71,38 @@ export const Login = () => {
             console.log(error);
         }
     };
+    const onSuccess = async (credentialResponse) => {
+        // retrieve data from here
+        try {
+            const idToken = credentialResponse.credential; // ID token from Google
+            // Send the ID token to your backend for verification
+
+            const res = await fetch(
+                "http://localhost:3000/api/auth/verify-google-token",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ idToken }),
+                }
+            );
+
+            const data = await res.json();
+            console.log(data);
+
+            setUserInfo(data.userInfo);
+            setError(false);
+            localStorage.setItem("user", JSON.stringify(data.userInfo));
+            localStorage.setItem("token", JSON.stringify(data.token));
+            setTimeout(() => {
+                setLoading(false);
+                navigate("/dashboard");
+            }, 500);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
@@ -160,10 +192,9 @@ export const Login = () => {
             <div className="flex justify-center">
                 <div className="mx-3 cursor-pointer">
                     <GoogleLogin
-                        onSuccess={(credentialResponse) => {
-                            console.log(credentialResponse);
-                            // retrieve data from here
-                        }}
+                        onSuccess={(credentialResponse) =>
+                            onSuccess(credentialResponse)
+                        }
                         onError={() => {
                             console.log("Login Failed");
                         }}

@@ -5,8 +5,39 @@ import { Footer } from "../components/Footer";
 import { ButtonPri, ButtonSec } from "../components/Buttons";
 import { Card } from "../components/Card";
 import Status from "../components/Status";
+import { Link } from "react-router-dom";
 
 export const Landing = () => {
+    const exams = [
+        {
+            _id: "123",
+            examName: "exam 1",
+            examdescription: "loass afk sjk kj sfjkd sjkfg sf fj",
+            maxMarks: "100",
+            examAvatar: "",
+        },
+        {
+            _id: "234",
+            examName: "exam 2",
+            examdescription: "Efwsf dfef wef ",
+            maxMarks: "100",
+            examAvatar: "",
+        },
+        {
+            _id: "345",
+            examName: "exam 3",
+            examdescription: "wefwef f sdsdf affd ag adg",
+            maxMarks: "100",
+            examAvatar: "",
+        },
+        {
+            _id: "456",
+            examName: "exam 4",
+            examdescription: "esdfg sfd greg rgzfg sfdgsgsfdgdfsg sfgg dfg sfg",
+            maxMarks: "100",
+            examAvatar: "",
+        },
+    ];
     return (
         <main className="bg-main-bg text-text-1  ">
             <section
@@ -36,34 +67,23 @@ export const Landing = () => {
                     Exams
                 </div>
                 <div className="flex justify-evenly flex-wrap">
-                    <Card
-                        title={"dsdsd"}
-                        description={`Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Alias iste deserunt commodi, esse magnam corporis!`}
-                        image={
-                            "https://theprotocolgroup.co.uk/wp-content/uploads/2024/02/discussion-protocol-group.jpg"
-                        }
-                        buttonText={"Hello"}
-                    />
-                    <Card
-                        title={"dsdsd"}
-                        description={`Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Alias iste deserunt commodi, esse magnam corporis!`}
-                        image={
-                            "https://theprotocolgroup.co.uk/wp-content/uploads/2024/02/discussion-protocol-group.jpg"
-                        }
-                        buttonText={"Hello"}
-                    />
-                    <Card
-                        title={"dsdsd"}
-                        description={`Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        Alias iste deserunt commodi, esse magnam corporis!`}
-                        image={
-                            "https://theprotocolgroup.co.uk/wp-content/uploads/2024/02/discussion-protocol-group.jpg"
-                        }
-                        buttonText={"Hello"}
-                    />
+                    {exams.length > 0 &&
+                        exams.map((exam) => {
+                            return (
+                                <Card
+                                    title={exam.examName}
+                                    description={exam.examdescription}
+                                    image={
+                                        "https://theprotocolgroup.co.uk/wp-content/uploads/2024/02/discussion-protocol-group.jpg"
+                                    }
+                                    buttonText={"Take Test"}
+                                />
+                            );
+                        })}
                 </div>
+                <ButtonSec className={"w-[40%] mx-auto  m-3 text-center"}>
+                    <Link to={"/test-details"}>See More..</Link>
+                </ButtonSec>{" "}
             </section>
             {/* <section>testimonials</section> */}
             <Footer />

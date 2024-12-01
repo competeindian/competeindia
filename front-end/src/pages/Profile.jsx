@@ -1,61 +1,96 @@
 import React, { useEffect, useState } from "react";
-// import { useRecoilValue } from "recoil";
-// import { userInfoAtom } from "../atoms/userAtom";
 import axios from "axios";
 import { InputField } from "../components/InputField";
 import { Logout } from "../components/Logout";
 import { ButtonSec, SubmitButton } from "../components/Buttons";
 
 export const Profile = () => {
-    // const user = useRecoilValue(userInfoAtom);
+    // Assuming user info is stored in localStorage
     const user = JSON.parse(localStorage.getItem("userInfo"));
 
-    const [first, setfirst] = useState();
-    console.log(user);
+    // State to store user data from backend
+    const [userData, setUserData] = useState({});
+
+    // Fetch user data from the backend when the component mounts
     useEffect(() => {
-        const U = async () => {
+        const fetchUserData = async () => {
             try {
+                const token = JSON.parse(localStorage.getItem("token"));
+
                 const res = await axios.get("http://localhost:3000/api/user/", {
-                    // withCredentials: true,
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                console.log(res.data);
-                setfirst(res.data);
+
+                setUserData(res.data); // Update state with user data
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching user data:", error);
             }
         };
-        U();
+
+        fetchUserData();
     }, []);
-    console.log(first?.imageUrl);
+
+    const handleUpdateProfile = () => {
+        // Placeholder for handling profile update (password change, etc.)
+        console.log("Profile updated!");
+    };
+
+    const handleDeleteAccount = () => {
+        // Placeholder for handling account deletion
+        console.log("Account deleted!");
+    };
+
     return (
-        <div>
-            <p className="text-center text-4xl">Profile </p>
-            <div className="max-w-lg mx-auto flex flex-col">
-                <img
-                    className="h-32 w-32 m-8 rounded-full object-cover self-center"
-                    src={user?.imageUrl}
-                    alt="profile-picture"
-                    srcSet=""
+        <div className="profile-page">
+            <p className="text-center text-text-1 text-4xl">Profile</p>
+            <div className="max-w-lg mx-auto flex flex-col p-4 bg-fourth-bg shadow-md rounded-lg">
+                {/* Profile Image */}
+                <div className="text-center">
+                    <img
+                        className="h-32 w-32 shadow-md m-4 rounded-full object-cover self-center"
+                        src={userData?.imageUrl || user?.imageUrl}
+                        alt="Profile Picture"
+                    />
+                </div>
+
+                {/* User Info */}
+                <InputField
+                    value={userData?.username || user?.username}
+                    type="text"
+                    label="Username"
+                    readOnly
                 />
-                <InputField value={user?.username} type={"text"} />
                 {user?.email ? (
                     <InputField value={user?.email} type={"text"} />
                 ) : null}
-                <InputField
-                    type={"text"}
-                    lable={"change password"}
-                    value={""}
-                />
-                <SubmitButton lable={"Update"} />
-                <div className="flex justify-between">
-                    <SubmitButton
-                        lable={"Delete Account"}
-                        className={"bg-red-900"}
+                {userData?.email && (
+                    <InputField
+                        value={userData?.email || user?.email}
+                        type="text"
+                        label="Email"
+                        readOnly
                     />
-                    <Logout />
+                )}
+
+                {/* Change Password Field */}
+                {/* <InputField type="password" label="Change Password" value="" /> */}
+
+                {/* Update Profile Button */}
+                {/* <SubmitButton label="Update" onClick={handleUpdateProfile} /> */}
+
+                <div className="flex justify-between mt-6">
+                    {/* Delete Account Button */}
+                    {/* <SubmitButton
+                        label="Delete Account"
+                        className="bg-red-600 text-white hover:bg-red-700"
+                        onClick={handleDeleteAccount}
+                    /> */}
+                    {/* Logout Button */}
+                    <Logout className={"hover:rounded-b-lg"} />
                 </div>
             </div>
-            {/* <p>{user.userId}</p> */}
         </div>
     );
 };

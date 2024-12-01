@@ -15,6 +15,7 @@ const signup = async (req, res, next) => {
             username,
             email,
             password: hashedPassword,
+            loginMethod: "password",
         });
 
         res.status(201).json({

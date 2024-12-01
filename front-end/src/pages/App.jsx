@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./Dashboard.jsx";
 import { Profile } from "./Profile.jsx";
 import { userInfoAtom } from "../atoms/user.atom.js";
+import { AdminPage } from "./Admin.jsx";
 
 export const notify = (status, message, position) => {
     toast[status](message, {
@@ -24,11 +25,11 @@ export const notify = (status, message, position) => {
     });
 };
 const App = () => {
-    const userInfInBrowser = JSON.parse(localStorage?.getItem("userInfo"));
+    const userInfInBrowser = JSON.parse(localStorage?.getItem("user"));
     const user = useRecoilValue(userInfoAtom);
-    const [isLogedIn, setIsLogedIn] = useState(false);
-    console.log(userInfInBrowser);
-    console.log(isLogedIn);
+    console.log(user);
+
+    const [isLogedIn, setIsLogedIn] = useState(true);
     useEffect(() => {
         if (userInfInBrowser || user?.username) {
             setIsLogedIn(true);
@@ -62,22 +63,20 @@ const App = () => {
                     <Route path="/error" element={<Error />} />
                     <Route path="/status" element={<Status />} />
                     {/* --protected--- */}
-                    <Route
-                        path={`/test-details/:testId`}
-                        element={<ExamDetailts />}
-                    />
+                    <Route path={`/test-details?`} element={<ExamDetailts />} />
                     <Route
                         path={`/dashboard`}
                         element={
-                            isLogedIn ? (
-                                <Dashboard />
-                            ) : (
-                                <Navigate to={"/login"} />
-                            )
+                            <Dashboard />
+                            // isLogedIn ? (
+                            // ) : (
+                            //     <Navigate to={"/login"} />
+                            // )
                         }
                     />
                     <Route path={`/take-test`} element={<TestScreen />} />
                     <Route path={`/profile`} element={<Profile />} />
+                    <Route path={`/admin`} element={<AdminPage />} />
                 </Routes>
             </BrowserRouter>
         </main>
